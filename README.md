@@ -3,4 +3,4 @@ This model represents an (approximate) simulation of the spread of an airborne v
 
 This project was carried out as part of the course AI961 - Self-organising multi-agent systems at Télécom Paris.
 
-![alt text](https://github.com/Tic-Tac-Toc/MultiAgentSystem-Virus-Model/blob/main/pics/interface.png)
+![alt text](https://github.com/Tic-Tac-Toc/MultiAgentSystem-Virus-Model/blob/main/Pics/interface.png)
