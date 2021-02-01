@@ -1,2 +1,2 @@
 # MultiAgentSystem-Virus-Model
-Modeling the spread of a virus within a population using NetLogo software
+This model represents an (approximate) simulation of the spread of an airborne virus (similar to the covid19) and the influence of the different control measures against this virus (lockdown, barrier gesture, travel restrictions, mask...).
