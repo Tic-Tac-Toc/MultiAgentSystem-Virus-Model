@@ -87,6 +87,10 @@ end
 
 ;; Procedure call at each tick when the button go is pressed
 to go
+  go-once
+end
+
+to go-once
   ifelse (not lockdown) [
     ask turtles [
       move
@@ -117,23 +121,25 @@ end
 
 ;; Procedure call at each tick to make the turtles move
 to move ;;turtle procedure
-  let last_patch patch-here
-  rt random-float 90 - random-float 90
-  fd 1
-  if xcor > max-pxcor ;; Keep the turtles in the area
-  [ set xcor max-pxcor ]
-  if ycor > max-pycor
-  [ set ycor max-pycor ]
+  if (not isolation or (isolation and not sick)) [
+    let last_patch patch-here
+    rt random-float 90 - random-float 90
+    fd 1
+    if xcor > max-pxcor ;; Keep the turtles in the area
+    [ set xcor max-pxcor ]
+    if ycor > max-pycor
+    [ set ycor max-pycor ]
 
-  if xcor < min-pxcor
-  [ set xcor min-pxcor ]
-  if ycor < min-pycor
-  [ set ycor min-pycor ]
+    if xcor < min-pxcor
+    [ set xcor min-pxcor ]
+    if ycor < min-pycor
+    [ set ycor min-pycor ]
 
-  let distance_from_initial distance initial_patch
-  if (distance_from_initial > radius_deplacement) ;; check if the turtle doesn't move to far of its origin
-  [
-    move-to last_patch
+    let distance_from_initial distance initial_patch
+    if (distance_from_initial > radius_deplacement) ;; check if the turtle doesn't move to far of its origin
+    [
+      move-to last_patch
+    ]
   ]
 end
 
@@ -288,10 +294,10 @@ Days
 30.0
 
 BUTTON
-11
-71
-74
-104
+10
+32
+145
+65
 setup
 setup
 NIL
@@ -305,9 +311,9 @@ NIL
 1
 
 BUTTON
-78
+11
 71
-141
+66
 104
 go
 go
@@ -322,9 +328,9 @@ NIL
 1
 
 INPUTBOX
-11
+7
 109
-141
+146
 169
 population_size
 100.0
@@ -356,7 +362,7 @@ percentage_respect_barrier_gesture
 percentage_respect_barrier_gesture
 0
 100
-0.0
+20.0
 1
 1
 %
@@ -393,10 +399,10 @@ percentage_recovery
 HORIZONTAL
 
 CHOOSER
-12
-175
-141
-220
+7
+174
+146
+219
 turtles_shape
 turtles_shape
 "circle" "person" "default"
@@ -411,7 +417,7 @@ radius_to_infect
 radius_to_infect
 0
 50
-3.2
+4.0
 0.2
 1
 NIL
@@ -589,7 +595,7 @@ radius_deplacement
 radius_deplacement
 0
 100
-100.0
+3.2
 0.2
 1
 NIL
@@ -668,6 +674,34 @@ TEXTBOX
 0.0
 1
 
+SWITCH
+373
+274
+483
+307
+isolation
+isolation
+1
+1
+-1000
+
+BUTTON
+69
+71
+146
+104
+NIL
+go-once
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
 @#$#@#$#@
 ## WHAT IS IT?
 
@@ -739,6 +773,9 @@ Defines the distance (circular) within which the user can move (similar to the 1
 
 ### lockdown [switch]
 Activate or not a "lockdown" mode, in the latter, only 10% of the agents move at each tick.
+
+### isolation [switch]
+An alternative to lockdown is just isolate (no movement) for sick agent (self-lockdown).
 
 ### Monitor and plot
 You can track the state of the population (percentage of sick, healthy and immunized people) as well as the number of deaths.
